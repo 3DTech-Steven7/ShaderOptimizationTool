@@ -1,0 +1,30 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "ShaderOptimizationTool",
+	"Description": "",
+	"Category": "Editor",
+	"CreatedBy": "Unireal",
+	"CreatedByURL": "www.unireal.cn",
+	"DocsURL": "www.unireal.cn",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"LocalizationTargets": [
+		{
+			"Name": "ShaderOptimizationTool_local",
+			"LoadingPolicy": "Editor"
+		}
+	],
+	"Modules": [
+		{
+			"Name": "ShaderOptimizationTool",
+			"Type": "Editor",
+			"LoadingPhase": "Default"
+		}
+	]
+}
