@@ -38,5 +38,5 @@ This is a simple and easy-to-use plug-in that can be used with just one click, a
 
 ### ReCompilations 重编译
 
-- You can select or recompile the material for the entire scene
+- You can select or recompile the shader for the entire scene
 - 可以选择或者将整个场景的材质重新编译
