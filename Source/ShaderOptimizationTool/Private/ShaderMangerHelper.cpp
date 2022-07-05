@@ -1,3 +1,5 @@
+// Copyright 2022 Unireal, All rights reserved.
+
 #include "ShaderMangerHelper.h"
 #include <ShaderCompiler.h>
 #include "GlobalShader.h"

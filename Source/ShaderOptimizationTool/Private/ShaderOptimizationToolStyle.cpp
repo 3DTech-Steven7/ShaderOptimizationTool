@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+// Copyright 2022 Unireal, All rights reserved.
 
 #include "ShaderOptimizationToolStyle.h"
 #include "ShaderOptimizationTool.h"
