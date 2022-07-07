@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #pragma once
 
@@ -21,10 +21,10 @@ public:
 
 	/** This function will be bound to Command. */
 	void ReCompilations();
-	void ClearCache();
+	void SwitchLembertView();
 	bool CheckCanCancel() const;
 	bool IsShaderCompilationSkipped() const;
-	bool IsClearCache() const;
+	bool IsSwitchLembertView() const;
 
 	void OnToggleSkipShaderCompilation();
 

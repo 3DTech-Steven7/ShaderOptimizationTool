@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #include "ShaderMangerHelper.h"
 #include <ShaderCompiler.h>
@@ -12,7 +12,7 @@
 
 bool FShaderCompilingManagerHelper::bOverlayMaterial = false;
 
-static const FString M_Lembert = TEXT("/ShaderOptimizationTool/M_Lembert");
+static const FString M_Lambert = TEXT("/ShaderOptimizationTool/M_Lambert");
 
 TMap< AActor*, TMap<UActorComponent*, TArray<TObjectPtr<UMaterialInterface>>>> FShaderCompilingManagerHelper::LastActorComponentOverrideMaterials;
 TMap< AActor*, TArray<TObjectPtr<UMaterialInterface>>> FShaderCompilingManagerHelper::LastActorOverrideMaterials;
@@ -100,7 +100,7 @@ void FShaderCompilingManagerHelper::ReCompilations()
 	UE_LOG(LogTemp, Log, TEXT("RecompileMateriaSet: %d"), RecompileMateriaSet.Num());
 }
 
-void FShaderCompilingManagerHelper::ClearCache()
+void FShaderCompilingManagerHelper::SwitchLembertView()
 {
 	if (GWorld->IsGameWorld())
 	{
@@ -132,10 +132,10 @@ void FShaderCompilingManagerHelper::ClearCache()
 
 void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 {
-	UMaterialInterface* SafeParent = FindObject<UMaterial>(nullptr, *M_Lembert);
+	UMaterialInterface* SafeParent = FindObject<UMaterial>(nullptr, *M_Lambert);
 	if (SafeParent == nullptr)
 	{
-		SafeParent = LoadObject<UMaterial>(nullptr, *M_Lembert, nullptr, LOAD_DisableDependencyPreloading, nullptr);
+		SafeParent = LoadObject<UMaterial>(nullptr, *M_Lambert, nullptr, LOAD_DisableDependencyPreloading, nullptr);
 		if (SafeParent == nullptr)
 		{
 			SafeParent = UMaterial::GetDefaultMaterial(MD_Surface);
@@ -426,7 +426,7 @@ bool FShaderCompilingManagerHelper::IsShaderCompilationSkipped()
 	return GShaderCompilingManager->IsShaderCompilationSkipped();
 }
 
-bool FShaderCompilingManagerHelper::IsClearCache()
+bool FShaderCompilingManagerHelper::IsSwitchLembertView()
 {
 	return bOverlayMaterial;
 }

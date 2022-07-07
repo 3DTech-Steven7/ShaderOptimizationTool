@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #pragma once
 
@@ -20,7 +20,7 @@ public:
 
 public:
 	TSharedPtr< FUICommandInfo > PluginAction_SkipShaderCompilation;
-	TSharedPtr< FUICommandInfo > PluginAction_ClearCache;
+	TSharedPtr< FUICommandInfo > PluginAction_SwitchLembertView;
 	TSharedPtr< FUICommandInfo > PluginAction_CancelAllCompilations;
 	TSharedPtr< FUICommandInfo > PluginAction_ReCompilations;
 };

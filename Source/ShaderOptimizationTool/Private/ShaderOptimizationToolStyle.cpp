@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #include "ShaderOptimizationToolStyle.h"
 #include "ShaderOptimizationTool.h"

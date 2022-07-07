@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #include "ShaderOptimizationTool.h"
 #include "ShaderOptimizationToolStyle.h"
@@ -29,10 +29,10 @@ void FShaderOptimizationToolModule::StartupModule()
 		FIsActionChecked::CreateRaw(this, &FShaderOptimizationToolModule::IsShaderCompilationSkipped));
 
 	CommandListRef->MapAction(
-		FShaderOptimizationToolCommands::Get().PluginAction_ClearCache,
-		FExecuteAction::CreateRaw(this, &FShaderOptimizationToolModule::ClearCache),
+		FShaderOptimizationToolCommands::Get().PluginAction_SwitchLembertView,
+		FExecuteAction::CreateRaw(this, &FShaderOptimizationToolModule::SwitchLembertView),
 		FCanExecuteAction(),
-		FIsActionChecked::CreateRaw(this, &FShaderOptimizationToolModule::IsClearCache));
+		FIsActionChecked::CreateRaw(this, &FShaderOptimizationToolModule::IsSwitchLembertView));
 
 	CommandListRef->MapAction(
 		FShaderOptimizationToolCommands::Get().PluginAction_CancelAllCompilations,
@@ -73,9 +73,9 @@ void FShaderOptimizationToolModule::ReCompilations()
 	FShaderCompilingManagerHelper::ReCompilations();
 }
 
-void FShaderOptimizationToolModule::ClearCache()
+void FShaderOptimizationToolModule::SwitchLembertView()
 {
-	FShaderCompilingManagerHelper::ClearCache();
+	FShaderCompilingManagerHelper::SwitchLembertView();
 }
 
 void FShaderOptimizationToolModule::RegisterMenus()
@@ -93,7 +93,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 						FToolMenuEntry::InitToolBarButton(
 							FShaderOptimizationToolCommands::Get().PluginAction_SkipShaderCompilation,
 							FText::FromString("SkipShaderCompilation"),
-							LOCTEXT("SkipShaderCompilation", "注意，开启跳过材质编译功能后不要打开材质编辑器，已经打开也不要编译。"),
+							LOCTEXT("SkipShaderCompilation", "Can skip scene material compilation, but do not open the material editor after enabling the skip material compilation function, and do not compile it if it is already open"),
 							FSlateIcon(TEXT("EditorStyle"), "MaterialEditor.Apply")
 						));
 					Entry.SetCommandList(CommandListRef);
@@ -102,9 +102,9 @@ void FShaderOptimizationToolModule::RegisterMenus()
 				{
 					FToolMenuEntry& Entry = Section.AddEntry(
 						FToolMenuEntry::InitToolBarButton(
-							FShaderOptimizationToolCommands::Get().PluginAction_ClearCache,
-							FText::FromString("ClearCache"),
-							LOCTEXT("ClearCache", "开启将场景变为灰模效果，关闭则恢复默认显示效果，选择的物体不会变成灰模效果"),
+							FShaderOptimizationToolCommands::Get().PluginAction_SwitchLembertView,
+							FText::FromString("SwitchLembertView"),
+							LOCTEXT("SwitchLembertView", "Turn on to turn the scene into a grayscale effect, turn it off to restore the default display effect, and the selected object will not turn into a grayscale effect"),
 							FSlateIcon(TEXT("EditorStyle"), "LandscapeEditor.RampTool")
 						));
 					Entry.SetCommandList(CommandListRef);
@@ -115,7 +115,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 						FToolMenuEntry::InitToolBarButton(
 							FShaderOptimizationToolCommands::Get().PluginAction_CancelAllCompilations,
 							FText::FromString("CancelAllCompilations"),
-							LOCTEXT("CancelAllCompilations", "关闭当前材质编译的队列"),
+							LOCTEXT("CancelAllCompilations", "Close the current shader compilation queue"),
 							FSlateIcon(TEXT("EditorStyle"), "ContentReference.Clear")
 						));
 					Entry.SetCommandList(CommandListRef);
@@ -126,7 +126,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 						FToolMenuEntry::InitToolBarButton(
 							FShaderOptimizationToolCommands::Get().PluginAction_ReCompilations,
 							FText::FromString("ReCompilations"),
-							LOCTEXT("ReCompilations", "可以选择或者将整个场景的材质重新编译"),
+							LOCTEXT("ReCompilations", "You can select or recompile the shader for the entire scene"),
 							FSlateIcon(TEXT("EditorStyle"), "LevelEditor.Recompile")
 						));
 					Entry.SetCommandList(CommandListRef);
@@ -146,9 +146,9 @@ bool FShaderOptimizationToolModule::IsShaderCompilationSkipped() const
 	return FShaderCompilingManagerHelper::IsShaderCompilationSkipped();
 }
 
-bool FShaderOptimizationToolModule::IsClearCache() const
+bool FShaderOptimizationToolModule::IsSwitchLembertView() const
 {
-	return FShaderCompilingManagerHelper::IsClearCache();
+	return FShaderCompilingManagerHelper::IsSwitchLembertView();
 }
 
 void FShaderOptimizationToolModule::OnToggleSkipShaderCompilation()

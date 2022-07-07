@@ -1,4 +1,4 @@
-// Copyright 2022 Unireal, All rights reserved.
+// Copyright 2022 3DTech, All rights reserved.
 
 #pragma once
 #include "CoreMinimal.h"
@@ -13,7 +13,7 @@ public:
 
 	static void SwitchOverrideMaterial(bool bOverlay);
 
-	static void ClearCache();
+	static void SwitchLembertView();
 
 	static void ReSetWorldMaterials();
 
@@ -27,7 +27,7 @@ public:
 
 	static bool IsShaderCompilationSkipped();
 
-	static bool IsClearCache();
+	static bool IsSwitchLembertView();
 
 	static bool bOverlayMaterial;
 
