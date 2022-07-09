@@ -3,11 +3,10 @@
 #include "ShaderMangerHelper.h"
 #include <ShaderCompiler.h>
 #include "GlobalShader.h"
-#include "LandscapeStreamingProxy.h"
+#include "LandscapeProxy.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstance.h"
-#include "LandscapeProxy.h"
 
 
 bool FShaderCompilingManagerHelper::bOverlayMaterial = false;
@@ -132,7 +131,7 @@ void FShaderCompilingManagerHelper::SwitchLembertView()
 
 void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 {
-	UMaterialInterface* SafeParent = LoadSafeParentMaterial();
+	UMaterial* SafeParent = LoadSafeParentMaterial();
 
 	if (bOverlay)
 	{
@@ -157,9 +156,8 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 				if (bOverlay)
 				{
 					LastActorOverrideMaterials.Add(LandscapeProxy, TArray<TObjectPtr<UMaterialInterface>>({LandscapeProxy->LandscapeMaterial}));
-					//LandscapeProxy->EditorSetLandscapeMaterial(SafeParent);
 					LandscapeProxy->LandscapeMaterial = SafeParent;
-					LandscapeProxy->UpdateAllComponentMaterialInstances();
+					LandscapeProxy->UpdateAllComponentMaterialInstances(true);
 				}
 				else
 				{
@@ -428,9 +426,9 @@ bool FShaderCompilingManagerHelper::IsGameWorld()
 	return GEditor->PlayWorld || GEditor->bIsSimulatingInEditor;
 }
 
-UMaterialInterface* FShaderCompilingManagerHelper::LoadSafeParentMaterial()
+UMaterial* FShaderCompilingManagerHelper::LoadSafeParentMaterial()
 {
-	UMaterialInterface* SafeParent = FindObject<UMaterial>(nullptr, *M_Lambert);
+	UMaterial* SafeParent = FindObject<UMaterial>(nullptr, *M_Lambert);
 	if (SafeParent == nullptr)
 	{
 		SafeParent = LoadObject<UMaterial>(nullptr, *M_Lambert, nullptr, LOAD_DisableDependencyPreloading, nullptr);
@@ -438,7 +436,13 @@ UMaterialInterface* FShaderCompilingManagerHelper::LoadSafeParentMaterial()
 		{
 			SafeParent = UMaterial::GetDefaultMaterial(MD_Surface);
 		}
-	}
+		else
+		{
+			SafeParent->AddToRoot();
+			GShaderCompilingManager->FinishAllCompilation();
+		}
+		
+}
 	return SafeParent;
 }
 
