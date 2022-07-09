@@ -102,7 +102,7 @@ void FShaderCompilingManagerHelper::ReCompilations()
 
 void FShaderCompilingManagerHelper::SwitchLembertView()
 {
-	if (GWorld->IsGameWorld())
+	if (IsGameWorld())
 	{
 		return;
 	}
@@ -132,15 +132,7 @@ void FShaderCompilingManagerHelper::SwitchLembertView()
 
 void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 {
-	UMaterialInterface* SafeParent = FindObject<UMaterial>(nullptr, *M_Lambert);
-	if (SafeParent == nullptr)
-	{
-		SafeParent = LoadObject<UMaterial>(nullptr, *M_Lambert, nullptr, LOAD_DisableDependencyPreloading, nullptr);
-		if (SafeParent == nullptr)
-		{
-			SafeParent = UMaterial::GetDefaultMaterial(MD_Surface);
-		}
-	}
+	UMaterialInterface* SafeParent = LoadSafeParentMaterial();
 
 	if (bOverlay)
 	{
@@ -430,3 +422,24 @@ bool FShaderCompilingManagerHelper::IsSwitchLembertView()
 {
 	return bOverlayMaterial;
 }
+
+bool FShaderCompilingManagerHelper::IsGameWorld()
+{
+	return GEditor->PlayWorld || GEditor->bIsSimulatingInEditor;
+}
+
+UMaterialInterface* FShaderCompilingManagerHelper::LoadSafeParentMaterial()
+{
+	UMaterialInterface* SafeParent = FindObject<UMaterial>(nullptr, *M_Lambert);
+	if (SafeParent == nullptr)
+	{
+		SafeParent = LoadObject<UMaterial>(nullptr, *M_Lambert, nullptr, LOAD_DisableDependencyPreloading, nullptr);
+		if (SafeParent == nullptr)
+		{
+			SafeParent = UMaterial::GetDefaultMaterial(MD_Surface);
+		}
+	}
+	return SafeParent;
+}
+
+

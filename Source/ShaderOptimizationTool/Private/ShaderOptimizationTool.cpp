@@ -31,7 +31,7 @@ void FShaderOptimizationToolModule::StartupModule()
 	CommandListRef->MapAction(
 		FShaderOptimizationToolCommands::Get().PluginAction_SwitchLembertView,
 		FExecuteAction::CreateRaw(this, &FShaderOptimizationToolModule::SwitchLembertView),
-		FCanExecuteAction(),
+		FCanExecuteAction::CreateRaw(this, &FShaderOptimizationToolModule::CanSwitchLembertView),
 		FIsActionChecked::CreateRaw(this, &FShaderOptimizationToolModule::IsSwitchLembertView));
 
 	CommandListRef->MapAction(
@@ -45,6 +45,9 @@ void FShaderOptimizationToolModule::StartupModule()
 		FCanExecuteAction());
 
 	UToolMenus::RegisterStartupCallback(FSimpleMulticastDelegate::FDelegate::CreateRaw(this, &FShaderOptimizationToolModule::RegisterMenus));
+
+    // Initialize material
+	FShaderCompilingManagerHelper::LoadSafeParentMaterial();
 }
 
 void FShaderOptimizationToolModule::ShutdownModule()
@@ -63,8 +66,6 @@ void FShaderOptimizationToolModule::ShutdownModule()
 
 void FShaderOptimizationToolModule::CancelAllCompilations()
 {
-	// Put your "OnButtonClicked" stuff here
-
 	FShaderCompilingManagerHelper::CancelAllCompilations();
 }
 
@@ -149,6 +150,11 @@ bool FShaderOptimizationToolModule::IsShaderCompilationSkipped() const
 bool FShaderOptimizationToolModule::IsSwitchLembertView() const
 {
 	return FShaderCompilingManagerHelper::IsSwitchLembertView();
+}
+
+bool FShaderOptimizationToolModule::CanSwitchLembertView() const
+{
+	return !FShaderCompilingManagerHelper::IsGameWorld();
 }
 
 void FShaderOptimizationToolModule::OnToggleSkipShaderCompilation()

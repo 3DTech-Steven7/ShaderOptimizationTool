@@ -25,6 +25,7 @@ public:
 	bool CheckCanCancel() const;
 	bool IsShaderCompilationSkipped() const;
 	bool IsSwitchLembertView() const;
+	bool CanSwitchLembertView() const;
 
 	void OnToggleSkipShaderCompilation();
 

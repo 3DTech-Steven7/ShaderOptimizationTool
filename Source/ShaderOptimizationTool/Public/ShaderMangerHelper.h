@@ -29,9 +29,13 @@ public:
 
 	static bool IsSwitchLembertView();
 
+	static bool IsGameWorld();
+
 	static bool bOverlayMaterial;
 
 	static TMap< AActor*, TMap<class UActorComponent*, TArray<TObjectPtr<class UMaterialInterface>>>> LastActorComponentOverrideMaterials;
 	
 	static TMap< AActor*, TArray<TObjectPtr<class UMaterialInterface>>> LastActorOverrideMaterials;
+
+	static UMaterialInterface* LoadSafeParentMaterial();
 };
