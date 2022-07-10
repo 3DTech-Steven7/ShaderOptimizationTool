@@ -15,7 +15,6 @@ public class ShaderOptimizationTool : ModuleRules
 				"CoreUObject",
 				"Projects",
 				"InputCore",
-				"EditorFramework",
 				"UnrealEd",
 				"ToolMenus",
 				"Engine",

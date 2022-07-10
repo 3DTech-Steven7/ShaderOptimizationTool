@@ -33,9 +33,9 @@ public:
 
 	static bool bOverlayMaterial;
 
-	static TMap< AActor*, TMap<class UActorComponent*, TArray<TObjectPtr<class UMaterialInterface>>>> LastActorComponentOverrideMaterials;
+	static TMap< AActor*, TMap<class UActorComponent*, TArray<class UMaterialInterface*>>> LastActorComponentOverrideMaterials;
 	
-	static TMap< AActor*, TArray<TObjectPtr<class UMaterialInterface>>> LastActorOverrideMaterials;
+	static TMap< AActor*, TArray<class UMaterialInterface*>> LastActorOverrideMaterials;
 
 	static UMaterial* LoadSafeParentMaterial();
 };

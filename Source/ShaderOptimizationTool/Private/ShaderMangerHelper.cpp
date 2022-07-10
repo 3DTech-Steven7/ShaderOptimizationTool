@@ -13,8 +13,8 @@ bool FShaderCompilingManagerHelper::bOverlayMaterial = false;
 
 static const FString M_Lambert = TEXT("/ShaderOptimizationTool/M_Lambert");
 
-TMap< AActor*, TMap<UActorComponent*, TArray<TObjectPtr<UMaterialInterface>>>> FShaderCompilingManagerHelper::LastActorComponentOverrideMaterials;
-TMap< AActor*, TArray<TObjectPtr<UMaterialInterface>>> FShaderCompilingManagerHelper::LastActorOverrideMaterials;
+TMap< AActor*, TMap<UActorComponent*, TArray<UMaterialInterface*>>> FShaderCompilingManagerHelper::LastActorComponentOverrideMaterials;
+TMap< AActor*, TArray<UMaterialInterface*>> FShaderCompilingManagerHelper::LastActorOverrideMaterials;
 
 void FShaderCompilingManagerHelper::OnToggleSkipShaderCompilation()
 {
@@ -45,7 +45,7 @@ void FShaderCompilingManagerHelper::ReCompilations()
 
 	GetMaterialSet(MaterialInterfaceSet, SelActorMaterialSet);
 
-	if (SelActorMaterialSet.IsEmpty())
+	if (SelActorMaterialSet.Num() == 0)
 	{
 		RecompileMateriaSet = MaterialInterfaceSet;
 	}
@@ -155,13 +155,13 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 			{
 				if (bOverlay)
 				{
-					LastActorOverrideMaterials.Add(LandscapeProxy, TArray<TObjectPtr<UMaterialInterface>>({LandscapeProxy->LandscapeMaterial}));
+					LastActorOverrideMaterials.Add(LandscapeProxy, TArray<UMaterialInterface*>({LandscapeProxy->LandscapeMaterial}));
 					LandscapeProxy->LandscapeMaterial = SafeParent;
-					LandscapeProxy->UpdateAllComponentMaterialInstances(true);
+					LandscapeProxy->UpdateAllComponentMaterialInstances();
 				}
 				else
 				{
-					if (TArray<TObjectPtr<UMaterialInterface>>* OverrideMaterials = LastActorOverrideMaterials.Find(LandscapeProxy))
+					if (TArray<UMaterialInterface*>* OverrideMaterials = LastActorOverrideMaterials.Find(LandscapeProxy))
 					{
 						LandscapeProxy->LandscapeMaterial = (*OverrideMaterials)[0];
 					}
@@ -173,11 +173,11 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 
 			Actor->GetComponents(Components);
 
-			TMap<UActorComponent*, TArray<TObjectPtr<UMaterialInterface>>> ActorComponentOverrideMaterials;
+			TMap<UActorComponent*, TArray<UMaterialInterface*>> ActorComponentOverrideMaterials;
 
 			if (!bOverlay)
 			{
-				TMap<UActorComponent*, TArray<TObjectPtr<UMaterialInterface>>>* ActorOverrideMaterialCache = LastActorComponentOverrideMaterials.Find(Actor);
+				TMap<UActorComponent*, TArray<UMaterialInterface*>>* ActorOverrideMaterialCache = LastActorComponentOverrideMaterials.Find(Actor);
 				if (ActorOverrideMaterialCache)
 				{
 					ActorComponentOverrideMaterials = *ActorOverrideMaterialCache;
@@ -207,7 +207,7 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 					}
 					else
 					{
-						if (TArray<TObjectPtr<UMaterialInterface>>* OverrideMaterials = ActorComponentOverrideMaterials.Find(ActorComponent))
+						if (const TArray<UMaterialInterface*>* OverrideMaterials = ActorComponentOverrideMaterials.Find(ActorComponent))
 						{
 							MeshComponent->OverrideMaterials = *OverrideMaterials;
 						}
@@ -226,7 +226,7 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 					}
 					else
 					{
-						if (TArray<TObjectPtr<UMaterialInterface>>* OverrideMaterials = ActorComponentOverrideMaterials.Find(ActorComponent))
+						if (const TArray<UMaterialInterface*>* OverrideMaterials = ActorComponentOverrideMaterials.Find(ActorComponent))
 						{
 							MeshComponent->OverrideMaterials = *OverrideMaterials;
 						}
@@ -236,7 +236,7 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 
 			if (bOverlay)
 			{
-                if(!ActorComponentOverrideMaterials.IsEmpty())
+                if(ActorComponentOverrideMaterials.Num() != 0)
                 {
                 	LastActorComponentOverrideMaterials.Add(Actor, ActorComponentOverrideMaterials);
                 }

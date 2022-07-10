@@ -2,7 +2,7 @@
 	"FileVersion": 3,
 	"Version": 1,
 	"VersionName": "1.1",
-	"EngineVersion": "5.0.0",
+	"EngineVersion": "4.27.0",
 	"FriendlyName": "ShaderOptimizationTool",
 	"Description": "This plugin can help you improved scene shader process.",
 	"Category": "Editor",

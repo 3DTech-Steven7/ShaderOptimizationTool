@@ -6,7 +6,6 @@
 #include "Styling/SlateStyleRegistry.h"
 #include "Slate/SlateGameResources.h"
 #include "Interfaces/IPluginManager.h"
-#include "Styling/SlateStyleMacros.h"
 
 #define RootToContentDir Style->RootToContentDir
 
@@ -42,8 +41,6 @@ TSharedRef< FSlateStyleSet > FShaderOptimizationToolStyle::Create()
 {
 	TSharedRef< FSlateStyleSet > Style = MakeShareable(new FSlateStyleSet("ShaderOptimizationToolStyle"));
 	Style->SetContentRoot(IPluginManager::Get().FindPlugin("ShaderOptimizationTool")->GetBaseDir() / TEXT("Resources"));
-
-	Style->Set("ShaderOptimizationTool.PluginAction", new IMAGE_BRUSH_SVG(TEXT("PlaceholderButtonIcon"), Icon20x20));
 	return Style;
 }
 

@@ -85,7 +85,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 	FToolMenuOwnerScoped OwnerScoped(this);
 
 	{
-		UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.LevelEditorToolBar.PlayToolBar");
+		UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("LevelEditor.LevelEditorToolBar");
 		{
 			FToolMenuSection& Section = ToolbarMenu->FindOrAddSection("ShaderOptimizationTool");
 			{
@@ -95,7 +95,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 							FShaderOptimizationToolCommands::Get().PluginAction_SkipShaderCompilation,
 							FText::FromString("SkipShaderCompilation"),
 							LOCTEXT("SkipShaderCompilation", "Can skip scene material compilation, but do not open the material editor after enabling the skip material compilation function, and do not compile it if it is already open"),
-							FSlateIcon(TEXT("EditorStyle"), "MaterialEditor.Apply")
+							FSlateIcon(TEXT("EditorStyle"), "Kismet.SetRealtimePreview")
 						));
 					Entry.SetCommandList(CommandListRef);
 				}
@@ -106,7 +106,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 							FShaderOptimizationToolCommands::Get().PluginAction_SwitchLembertView,
 							FText::FromString("SwitchLembertView"),
 							LOCTEXT("SwitchLembertView", "Turn on to turn the scene into a grayscale effect, turn it off to restore the default display effect, and the selected object will not turn into a grayscale effect"),
-							FSlateIcon(TEXT("EditorStyle"), "LandscapeEditor.RampTool")
+							FSlateIcon(TEXT("EditorStyle"), "BlueprintEditor.ShowFloor")
 						));
 					Entry.SetCommandList(CommandListRef);
 				}
@@ -117,7 +117,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 							FShaderOptimizationToolCommands::Get().PluginAction_CancelAllCompilations,
 							FText::FromString("CancelAllCompilations"),
 							LOCTEXT("CancelAllCompilations", "Close the current shader compilation queue"),
-							FSlateIcon(TEXT("EditorStyle"), "ContentReference.Clear")
+							FSlateIcon(TEXT("EditorStyle"), "Kismet.DeleteUnusedVariables")
 						));
 					Entry.SetCommandList(CommandListRef);
 				}
@@ -128,7 +128,7 @@ void FShaderOptimizationToolModule::RegisterMenus()
 							FShaderOptimizationToolCommands::Get().PluginAction_ReCompilations,
 							FText::FromString("ReCompilations"),
 							LOCTEXT("ReCompilations", "You can select or recompile the shader for the entire scene"),
-							FSlateIcon(TEXT("EditorStyle"), "LevelEditor.Recompile")
+							FSlateIcon(TEXT("EditorStyle"), "Kismet.CompileBlueprint")
 						));
 					Entry.SetCommandList(CommandListRef);
 				}
