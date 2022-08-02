@@ -16,6 +16,18 @@ static const FString M_Lambert = TEXT("/ShaderOptimizationTool/M_Lambert");
 TMap< AActor*, TMap<UActorComponent*, TArray<TObjectPtr<UMaterialInterface>>>> FShaderCompilingManagerHelper::LastActorComponentOverrideMaterials;
 TMap< AActor*, TArray<TObjectPtr<UMaterialInterface>>> FShaderCompilingManagerHelper::LastActorOverrideMaterials;
 
+TAutoConsoleVariable<int32> FShaderCompilingManagerHelper::CVarSkipShaderCompilation = TAutoConsoleVariable(
+	TEXT("r.SkipShaderCompilation"),
+	0,
+	TEXT("Skip Shader Compilation.\n")
+	TEXT("Note: Needs off == 0 && on == 1"),
+	ECVF_Default);
+
+void FShaderCompilingManagerHelper::SetSkipShaderCompilation(bool bInSkip)
+{
+	GShaderCompilingManager->SkipShaderCompilation(bInSkip);
+}
+
 void FShaderCompilingManagerHelper::OnToggleSkipShaderCompilation()
 {
 	if (IsShaderCompilationSkipped())

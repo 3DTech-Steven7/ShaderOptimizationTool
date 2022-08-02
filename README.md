@@ -5,6 +5,8 @@
 This plugin can help you improved scene shader process.
 这个插件可以帮助你改进场景材质优化流程。
 
+</br>
+
 ## Do you more or less encounter this problem? 你是否或多或少遇到这样的问题
 
 - On Tuesday, our members will compile and compile again after modification, the previous compilation will not be cancelled, and the development can continue. We will wait for the compilation to complete or continue.
@@ -18,6 +20,8 @@ This plugin can help you improved scene shader process.
 
 This is a simple and easy-to-use plug-in that can be used with just one click, and has four functions
 那么有一款插件能解决以上问题岂不是很妙，那就先看看功能效果。
+
+</br>
 
 ## Features 特性
 
@@ -40,3 +44,16 @@ This is a simple and easy-to-use plug-in that can be used with just one click, a
 
 - You can select or recompile the shader for the entire scene
 - 可以选择或者将整个场景的材质重新编译
+
+</br>
+
+## Engine Startup 初始化配置
+
+### Console variables 控制台变量
+
+- Add **r.SkipShaderCompilation=1** to [Startup] in Engine/Config/ConsoleVariables.ini
+- 在Engine/Config/ConsoleVariables.ini中的[Startup]下加上**r.SkipShaderCompilation=1**
+
+### Command line 命令行
+
+    UE4Editor.exe GAMENAME -ExecCmds="r.SkipShaderCompilation 1"
