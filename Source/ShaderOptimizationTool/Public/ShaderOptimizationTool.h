@@ -30,7 +30,7 @@ public:
 	void OnToggleSkipShaderCompilation();
 
 private:
-
+    static void InitVariables();
 	void RegisterMenus();
 
 private:

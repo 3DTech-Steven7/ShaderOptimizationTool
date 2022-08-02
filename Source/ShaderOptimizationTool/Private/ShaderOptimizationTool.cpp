@@ -48,6 +48,8 @@ void FShaderOptimizationToolModule::StartupModule()
 
     // Initialize material
 	FShaderCompilingManagerHelper::LoadSafeParentMaterial();
+	
+	InitVariables();
 }
 
 void FShaderOptimizationToolModule::ShutdownModule()
@@ -160,6 +162,12 @@ bool FShaderOptimizationToolModule::CanSwitchLembertView() const
 void FShaderOptimizationToolModule::OnToggleSkipShaderCompilation()
 {
 	FShaderCompilingManagerHelper::OnToggleSkipShaderCompilation();
+}
+
+void FShaderOptimizationToolModule::InitVariables()
+{
+	static IConsoleVariable* CVarSkipShaderCompilation = IConsoleManager::Get().FindConsoleVariable(TEXT("r.SkipShaderCompilation"));
+	FShaderCompilingManagerHelper::SetSkipShaderCompilation(CVarSkipShaderCompilation->GetBool());
 }
 
 
