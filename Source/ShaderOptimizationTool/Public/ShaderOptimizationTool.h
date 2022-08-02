@@ -22,15 +22,15 @@ public:
 	/** This function will be bound to Command. */
 	void ReCompilations();
 	void SwitchLembertView();
-	bool CheckCanCancel() const;
-	bool IsShaderCompilationSkipped() const;
+	bool CheckCanCancel();
+	bool IsShaderCompilationSkipped();
 	bool IsSwitchLembertView() const;
 	bool CanSwitchLembertView() const;
 
 	void OnToggleSkipShaderCompilation();
 
 private:
-
+	static void InitVariables();
 	void RegisterMenus();
 
 private:
