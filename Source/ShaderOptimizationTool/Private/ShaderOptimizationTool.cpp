@@ -1,6 +1,8 @@
 // Copyright 2022 3DTech, All rights reserved.
 
 #include "ShaderOptimizationTool.h"
+
+#include "ISettingsModule.h"
 #include "ShaderOptimizationToolStyle.h"
 #include "ShaderOptimizationToolCommands.h"
 #include "Misc/MessageDialog.h"
@@ -48,6 +50,8 @@ void FShaderOptimizationToolModule::StartupModule()
 
     // Initialize material
 	FShaderCompilingManagerHelper::LoadSafeParentMaterial();
+	
+	InitVariables();
 }
 
 void FShaderOptimizationToolModule::ShutdownModule()
@@ -137,12 +141,12 @@ void FShaderOptimizationToolModule::RegisterMenus()
 	}
 }
 
-bool FShaderOptimizationToolModule::CheckCanCancel() const
+bool FShaderOptimizationToolModule::CheckCanCancel()
 {
 	return FShaderCompilingManagerHelper::CheckCanCancel();
 }
 
-bool FShaderOptimizationToolModule::IsShaderCompilationSkipped() const
+bool FShaderOptimizationToolModule::IsShaderCompilationSkipped()
 {
 	return FShaderCompilingManagerHelper::IsShaderCompilationSkipped();
 }
@@ -160,6 +164,12 @@ bool FShaderOptimizationToolModule::CanSwitchLembertView() const
 void FShaderOptimizationToolModule::OnToggleSkipShaderCompilation()
 {
 	FShaderCompilingManagerHelper::OnToggleSkipShaderCompilation();
+}
+
+void FShaderOptimizationToolModule::InitVariables()
+{
+	static IConsoleVariable* CVarSkipShaderCompilation = IConsoleManager::Get().FindConsoleVariable(TEXT("r.SkipShaderCompilation"));
+	FShaderCompilingManagerHelper::SetSkipShaderCompilation(CVarSkipShaderCompilation->GetBool());
 }
 
 

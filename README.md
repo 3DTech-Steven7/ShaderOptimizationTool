@@ -5,6 +5,8 @@
 This plugin can help you improved scene shader process.
 这个插件可以帮助你改进场景材质优化流程。
 
+</br>
+
 ## Do you more or less encounter this problem? 你是否或多或少遇到这样的问题
 
 - On Tuesday, our members will compile and compile again after modification, the previous compilation will not be cancelled, and the development can continue. We will wait for the compilation to complete or continue.
@@ -19,6 +21,8 @@ This plugin can help you improved scene shader process.
 This is a simple and easy-to-use plug-in that can be used with just one click, and has four functions
 那么有一款插件能解决以上问题岂不是很妙，那就先看看功能效果。
 
+</br>
+
 ## Features 特性
 
 ### SkipShaderCompilation 跳过材质编译
@@ -26,7 +30,7 @@ This is a simple and easy-to-use plug-in that can be used with just one click, a
 - Can skip scene material compilation, but do not open the material editor after enabling the skip material compilation function, and do not compile it if it is already open
 - 可以跳过材质编译，不过注意开启跳过材质编译功能后不要打开材质编辑器，已经打开也不要编译
 
-### Switch Lembert View 切换灰模显示
+### Switch Lambert View 切换灰模显示
 
 - Turn on to turn the scene into a grayscale effect, turn it off to restore the default display effect, and the selected object will not turn into a grayscale effect
 - 开启将场景变为灰模效果，关闭则恢复默认显示效果，选择的物体不会变成灰模效果
@@ -40,3 +44,16 @@ This is a simple and easy-to-use plug-in that can be used with just one click, a
 
 - You can select or recompile the shader for the entire scene
 - 可以选择或者将整个场景的材质重新编译
+
+</br>
+
+## Engine Startup 初始化配置
+
+### Console variables 控制台变量
+
+- Add **r.SkipShaderCompilation=1** to [Startup] in Engine/Config/ConsoleVariables.ini
+- 在Engine/Config/ConsoleVariables.ini中的[Startup]下加上**r.SkipShaderCompilation=1**
+
+### Command line 命令行
+
+    UE4Editor.exe GAMENAME -ExecCmds="r.SkipShaderCompilation 1"

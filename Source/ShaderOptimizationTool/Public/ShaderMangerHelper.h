@@ -7,6 +7,8 @@
 class FShaderCompilingManagerHelper
 {
 public:
+	static void SetSkipShaderCompilation(bool bInSkip);
+
 	static void OnToggleSkipShaderCompilation();
 
 	static void ReCompilations();
@@ -37,5 +39,7 @@ public:
 	
 	static TMap< AActor*, TArray<TObjectPtr<class UMaterialInterface>>> LastActorOverrideMaterials;
 
-	static UMaterialInterface* LoadSafeParentMaterial();
+	static UMaterial* LoadSafeParentMaterial();
+	
+	static TAutoConsoleVariable<int32> CVarSkipShaderCompilation;
 };
