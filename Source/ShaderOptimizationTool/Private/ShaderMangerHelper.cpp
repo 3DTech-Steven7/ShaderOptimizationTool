@@ -2,11 +2,16 @@
 
 #include "ShaderMangerHelper.h"
 #include <ShaderCompiler.h>
-#include "GlobalShader.h"
 #include "LandscapeProxy.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstance.h"
+
+#if ENGINE_MAJOR_VERSION == 5 && ENGINE_MINOR_VERSION >= 2
+#include "MaterialDomain.h"
+#else
+#include "GlobalShader.h"
+#endif
 
 
 bool FShaderCompilingManagerHelper::bOverlayMaterial = false;
