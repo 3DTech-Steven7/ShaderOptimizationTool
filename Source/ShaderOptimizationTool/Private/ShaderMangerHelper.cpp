@@ -161,7 +161,7 @@ void FShaderCompilingManagerHelper::SwitchOverrideMaterial(bool bOverlay)
 	{
 		ULevel* Level = GWorld->GetLevel(LevelIndex);
 
-		for (AActor*& Actor : Level->Actors)
+		for (AActor* Actor : Level->Actors)
 		{
 			if (!Actor->IsValidLowLevel() || Actor->IsSelected())
 			{
@@ -269,7 +269,7 @@ void FShaderCompilingManagerHelper::ReSetWorldMaterials()
 	for (int32 LevelIndex = 0; LevelIndex < GWorld->GetNumLevels(); LevelIndex++)
 	{
 		ULevel* Level = GWorld->GetLevel(LevelIndex);
-		for (AActor*& Actor : Level->Actors)
+		for (AActor* Actor : Level->Actors)
 		{
 			if (!Actor->IsValidLowLevel())
 			{
@@ -321,7 +321,7 @@ void FShaderCompilingManagerHelper::GetMaterialSet(TSet<UMaterialInterface*>& Ma
 	for (int32 LevelIndex = 0; LevelIndex < GWorld->GetNumLevels(); LevelIndex++)
 	{
 		ULevel* Level = GWorld->GetLevel(LevelIndex);
-		for (AActor*& Actor : Level->Actors)
+		for (const AActor* Actor : Level->Actors)
 		{
 			if (!Actor->IsValidLowLevel())
 			{
